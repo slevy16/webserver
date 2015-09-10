@@ -1,4 +1,5 @@
 import web
+render = web.template.render('templates/', base ='layout')
 
 urls = (
     '/', 'index'
@@ -6,7 +7,7 @@ urls = (
 
 class index:
     def GET(self):
-        return "<html><h1>Wow, such web!</h1> Very HTTP</html>"
+        return render.index()
 
 #main method
 if __name__ == '__main__':
