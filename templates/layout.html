@@ -1,11 +1,16 @@
 $def with (content)
 <html>
   <head>
-    <title> 🐸 </title>
+    <title> 🐸PepeCache </title>
     <link rel="icon" href="static/favicon.ico"></link>
     <link rel="stylesheet" type = "text/css" href = "static/webserver.css"></link>
   </head>
   <body>
-    $:content
+    <header class = "shadow-2">
+      🐸PepeCache
+    </header>
+    <div id = "contentbox" class = "shadow-1">
+      $:content
+    </div>
   </body>
 </html>
