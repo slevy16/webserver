@@ -1,11 +1,26 @@
 $def with (content)
 <html>
   <head>
-    <title> 🐸 </title>
+    <title> 🐸PepeCache </title>
     <link rel="icon" href="static/favicon.ico"></link>
     <link rel="stylesheet" type = "text/css" href = "static/webserver.css"></link>
+    <button onclick="changePage()">click here</button>
   </head>
   <body>
-    $:content
+    <header class = "shadow-2"></header>
+    <div id = "title" class = "headbar" onclick = "changePage1()">🐸PepeCache</div>
+    <div id = "feed" class = "headbar" onclick = "changePage2()">Pepe Feed</div>
+    <div id ="upload" class = "headbar" onclick = "changePage3()">Pepe Upload</div>
+    <div id = "contentbox" class = "shadow-1">
+    <script>
+      function changePage1() {
+      document.location.href = '/';}
+      function changePage2() {
+      document.location.href = '/feed';}
+      function changePage3() {
+      document.location.href = '/uploads';}
+    </script>
+      $:content
+    </div>
   </body>
 </html>
