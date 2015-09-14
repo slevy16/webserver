@@ -1,3 +1,4 @@
+$def with (arr)
 <html>
   <head>
     <title> PepeCache </title>
@@ -6,7 +7,8 @@
   </head>
   <body>
     <div id = "welcome">
-      This is your Pepe feed
+      Pepe Feed
     </div>
+    $for i in arr: <div class ='post'><img class = 'image' src = 'static/uploads/$i'></img></div>
   </body>
 </html>
