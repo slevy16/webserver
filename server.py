@@ -1,4 +1,5 @@
 import web
+import os
 render = web.template.render('templates/', base ='layout')
 
 urls = (
@@ -13,7 +14,9 @@ class index:
         return render.index()
 class feed:
     def GET(self):
-        return render.feed()
+        x = os.listdir('static/uploads')
+        x.remove('.DS_Store')
+        return render.feed(x)
 class uploads:
     def GET(self):
         return render.uploads()
