@@ -1,17 +1,27 @@
 import web
 import os
 render = web.template.render('templates/', base ='layout')
+db = web.database(dbn = 'sqlite' , db = 'database')
 
 urls = (
     '/', 'index',
     '/feed', 'feed',
-    '/uploads', 'uploads'
+    '/uploads', 'uploads',
+    '/newuser', 'newuser'
     )
 app = web.application(urls, globals(), True)
 
 class index:
     def GET(self):
         return render.index()
+    def POST(self):
+        form = web.input()
+        un = form.username
+        pw = form.password
+        users = db.select('users' , where='name ="' + un + '"')
+        if(users[0].password == pw):
+            print("login success")
+            #redirect to main page
 class feed:
     def GET(self):
         x = os.listdir('static/uploads')
@@ -30,6 +40,16 @@ class uploads:
             fout = open(filedir +'/'+ filename,'w') # creates the file where the uploaded file should be stored
             fout.write(x.myfile.file.read()) # writes the uploaded file to the newly created file.
             fout.close() # closes the file, upload complete.
+        raise web.seeother('/feed')
+class newuser:
+    def GET(self):
+        return render.newuser()
+
+    def POST(self):
+        form = web.input()
+        newUsername = form.newUsername
+        newPassword = form.newPassword
+        db.insert('users' , name = newUsername , password = newPassword)
         raise web.seeother('/feed')
 
 #main method

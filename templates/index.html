@@ -1,13 +1,21 @@
 <html>
   <head>
-    <title> PepeCache </title>
+    <title> pepecache </title>
     <link rel="icon" href="static/favicon.ico"></link>
     <link rel="stylesheet" type = "text/css" href = "static/webserver.css"></link>
   </head>
   <body>
-    <div id = "welcome">
-      Welcome to PepeCache!
-      <img src = "static/pepemaster.png" width = "350px" height = "350px"></img>
+    <div id = "login" class = 'welcome'>
+      welcome to pepecache!
+      <br><img src = "static/pepemaster.png" width = "200px" height = "200px"></img>
+      <form id = 'username' method = 'POST' enctype="multipart/form-data" action="" class = "smalltext">
+        username
+        <input type = "text" name = "username"></input><br>
+        password
+        <input type = "text" name = "password"></input><br>
+        <input type = "submit" value = "log in"></input>
+      </form>
+      <a href = "/newuser" class = "smalltext">new account?</a>
     </div>
   </body>
 </html>
