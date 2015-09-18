@@ -5,10 +5,11 @@ $def with (arr)
     <link rel="icon" href="static/favicon.ico"></link>
     <link rel="stylesheet" type = "text/css" href = "static/webserver.css"></link>
   </head>
-  <body>
-    <div id = "welcome">
+    <body onload = "checkuserstatus()">
+    <div class = "welcome">
       pepe feed
     </div>
-    $for i in arr: <div class ='post'><img class = 'image' src = 'static/uploads/$i'></img></div>
+    <br>
+    $for i in arr: <div class ='post'><img class = 'image' src = 'static/uploads/$i'></img></div><br>
   </body>
 </html>

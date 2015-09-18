@@ -1,27 +1,33 @@
 import web
 import os
 render = web.template.render('templates/', base ='layout')
-db = web.database(dbn = 'sqlite' , db = 'database')
+db = web.database(dbn = 'sqlite' , db = 'data_base')
 
 urls = (
     '/', 'index',
     '/feed', 'feed',
     '/uploads', 'uploads',
-    '/newuser', 'newuser'
+    '/newuser', 'newuser',
+    '/login' , 'login',
+    '/notloggedin', 'notloggedin'
     )
 app = web.application(urls, globals(), True)
 
 class index:
     def GET(self):
         return render.index()
+
     def POST(self):
         form = web.input()
         un = form.username
         pw = form.password
         users = db.select('users' , where='name ="' + un + '"')
         if(users[0].password == pw):
-            print("login success")
-            #redirect to main page
+            print('login success')
+            return render.login(un)
+        else:
+            print('login failed')
+            raise web.seeother('/')
 class feed:
     def GET(self):
         x = os.listdir('static/uploads')
@@ -51,6 +57,13 @@ class newuser:
         newPassword = form.newPassword
         db.insert('users' , name = newUsername , password = newPassword)
         raise web.seeother('/feed')
+class login:
+    def GET(self):
+        return render.login()
+
+class notloggedin:
+    def GET(self):
+        return render.notloggedin()
 
 #main method
 if __name__ == '__main__':
