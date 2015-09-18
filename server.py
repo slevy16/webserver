@@ -1,7 +1,8 @@
 import web
 import os
 render = web.template.render('templates/', base ='layout')
-db = web.database(dbn = 'sqlite' , db = 'data_base')
+db = web.database(dbn = 'sqlite' , db = 'database')
+posts = web.database(dbn = 'sqlite' , db = 'posts.db')
 
 urls = (
     '/', 'index',
@@ -22,17 +23,24 @@ class index:
         un = form.username
         pw = form.password
         users = db.select('users' , where='name ="' + un + '"')
-        if(users[0].password == pw):
-            print('login success')
-            return render.login(un)
-        else:
-            print('login failed')
+        try:
+            if(users[0].password == pw):
+                print('login success')
+                return render.login(un)
+            else:
+                print('login failed')
+                raise web.seeother('/')
+                #redirect to main page
+        except:
             raise web.seeother('/')
+
 class feed:
     def GET(self):
-        x = os.listdir('static/uploads')
-        x.remove('.DS_Store')
-        return render.feed(x)
+        stuff = posts.select('posts')
+        #x = os.listdir('static/uploads')
+        #x.remove('.DS_Store')
+        return render.feed(stuff)
+
 class uploads:
     def GET(self):
         return render.uploads()
@@ -46,7 +54,12 @@ class uploads:
             fout = open(filedir +'/'+ filename,'w') # creates the file where the uploaded file should be stored
             fout.write(x.myfile.file.read()) # writes the uploaded file to the newly created file.
             fout.close() # closes the file, upload complete.
+
+            user = web.cookies().get('username')
+            posts.insert('posts' , address = (filedir +'/'+ filename) , username = user)#stores the image address and username in a database
+
         raise web.seeother('/feed')
+
 class newuser:
     def GET(self):
         return render.newuser()
@@ -56,15 +69,11 @@ class newuser:
         newUsername = form.newUsername
         newPassword = form.newPassword
         db.insert('users' , name = newUsername , password = newPassword)
-        raise web.seeother('/feed')
-class login:
-    def GET(self):
-        return render.login()
+        raise web.seeother('/')
 
 class notloggedin:
     def GET(self):
         return render.notloggedin()
-
 #main method
 if __name__ == '__main__':
     app.run()

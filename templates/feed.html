@@ -1,15 +1,15 @@
 $def with (arr)
 <html>
   <head>
-    <title> PepeCache </title>
+    <title> pepecache </title>
     <link rel="icon" href="static/favicon.ico"></link>
     <link rel="stylesheet" type = "text/css" href = "static/webserver.css"></link>
   </head>
-    <body onload = "checkuserstatus()">
+  <body onload = "checkuserstatus()">
     <div class = "welcome">
       pepe feed
     </div>
     <br>
-    $for i in arr: <div class ='post'><img class = 'image' src = 'static/uploads/$i'></img></div><br>
+    $for i in arr: <div class ='post'><img class = 'image' src = '$i.address'></img><br><div class = "smalltext">posted by $i.username</div></div><br>
   </body>
 </html>
