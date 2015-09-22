@@ -29,6 +29,13 @@ header {
   text-decoration: none;
 }
 
+.smalltext2 {
+  font-size: 20px;
+  color: #45648C;
+  text-decoration: none;
+  font-style: italic;
+}
+
 .post {
   position: relative;
   background-color: #FFFFFF;
